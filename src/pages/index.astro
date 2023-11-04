@@ -10,7 +10,7 @@ const posts = (
   await getCollection("blog", ({ data }) => {
     return data.draft !== true;
   })
-).sort((a, b) => a.data.year.valueOf() - b.data.year.valueOf());
+).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 
 const amountOfPosts = posts.length;
 
@@ -23,24 +23,14 @@ const currentPath = pathname.slice(1); // remove the first "/"
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <Header tags={tags} currentPath={currentPath} amount={amountOfPosts} />
   <main class="main">
-    <div class="intro">
-      <p class="intro__text font-size-l">
-        Under the influeunce of Dieter Rams between 1955 and 1995, Braun
-        introduced a collection of iconic products that underscored his lasting
-        impact on minimalist design principles and the enduring philosophy of
-        "less but better." These principles continue to inspire designers today.
-      </p>
-    </div>
     <div class="items">
       {
         posts.map((post) => (
           <Article
-            size={post.data.size}
             slug={post.slug}
-            image={post.data.heroImage}
+            image={post.data.preview}
             title={post.data.title}
-            authors={post.data.authors}
-            year={post.data.year}
+            foundry={post.data.foundry}
           />
         ))
       }

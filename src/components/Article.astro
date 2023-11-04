@@ -1,36 +1,18 @@
 ---
-import { Image } from "astro:assets";
-const { year, slug, title, image, authors } = Astro.props;
+const { slug, title, foundry } = Astro.props;
+const { default: svg } = await import(`../svg/${slug}.svg?raw`);
 // make an id for each item based on the title
 const id = title.toLowerCase().replace(/\s/g, "-");
-const authorsJoined = authors.join(" & ");
 ---
 
 <article class={`item`}>
   <a class="item__link" href={`/${slug}/`} rel="prefetch">
-    <p class="item__year">
-      {year}
-    </p>
-    <!-- <Image
-      class="item__img"
-      width="800"
-      height="800"
-      src={image}
-      alt={title}
-      transition:name={`image-${id}`}
-    /> -->
-    <!-- <Image class="item__img" width="800" height="800" src={image} alt={title} /> -->
-    <Image
-      class="item__img"
-      width="1000"
-      height="1000"
-      src={image}
-      alt={title}
-    />
-    <!-- <img class="item__img" width="600" height="600" src={image} alt={title} /> -->
+    <div class="item__img">
+      <Fragment set:html={svg} />
+    </div>
     <header class="item__header">
       <h2 class="item__title">{title}</h2>
-      <p class="item__desc">{authorsJoined}</p>
+      <p class="item__foundry">By {foundry}</p>
     </header>
   </a>
 </article>

@@ -6,7 +6,7 @@ const posts = (
   await getCollection("blog", ({ data }) => {
     return data.draft !== true;
   })
-).sort((a, b) => a.data.year.valueOf() - b.data.year.valueOf());
+).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 
 const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
 

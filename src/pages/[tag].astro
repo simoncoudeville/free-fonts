@@ -11,7 +11,7 @@ export async function getStaticPaths() {
     await getCollection("blog", ({ data }) => {
       return data.draft !== true;
     })
-  ).sort((a, b) => a.data.year.valueOf() - b.data.year.valueOf());
+  ).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 
   const uniqueTags = [
     ...new Set(allPosts.map((post) => post.data.tags).flat()),
@@ -47,7 +47,7 @@ const currentPath = pathname.slice(1); // remove the first "/"
   <main class="main">
     <div class="intro">
       <p class="font-size-l">
-        <!-- <span class="font-weight-bold">{amount}</span> products tagged with{" "} -->
+        <span class="font-weight-bold">{amount}</span> products tagged with{" "}
         <span class="font-weight-bold">{tagUppercased}</span>
       </p>
     </div>
@@ -55,12 +55,10 @@ const currentPath = pathname.slice(1); // remove the first "/"
       {
         posts.map((post) => (
           <Article
-            size={post.data.size}
             slug={post.slug}
-            image={post.data.heroImage}
+            image={post.data.preview}
             title={post.data.title}
             authors={post.data.authors}
-            year={post.data.year}
           />
         ))
       }

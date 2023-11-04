@@ -4,21 +4,18 @@ const blog = defineCollection({
 	// Type-check frontmatter using a schema
 	schema: ({ image }) => z.object({
 		title: z.string(),
-		authors: z.array(z.string()),
-		size: z.number(),
+		foundry: z.string(),
+		foundryLink: z.string().optional(),
 		// Transform string to Date object
 		pubDate: z.coerce.date(),
-		year: z.number(),
 		tags: z.array(z.string()),
-		updatedDate: z.coerce.date().optional(),
-		company: z.string(),
-		credit: z.string().optional(),
-		creditLink: z.string().optional(),
+		downloadLink: z.string(),
+		preview: z.string().optional(),
 		draft: z.boolean().optional(),
-		heroImage: image().refine((img) => img.width >= 1300, {
-			message: "Cover image must be at least 1500 pixels wide!",
-		}),
-		// heroImage: z.string(),
+		// preview: image().refine((img) => img.width >= 100, {
+		// 	message: "Cover image must be at least 100 pixels wide!",
+		// }),
+		// preview: z.string(),
 	}),
 });
 
