@@ -11,17 +11,17 @@ const id = title.toLowerCase().replace(/\s/g, "-");
 const { default: svg } = await import(`../svg/${slug}.svg?raw`);
 ---
 
-<BaseLayout title={title} className="bg-foregroundColor">
+<BaseLayout title={title}>
   <BackLink />
   <article class="detail">
     <header class="detail__intro">
-      <div class="detail__img">
+      <h1 class="detail__img">
         <Fragment set:html={svg} />
-      </div>
+      </h1>
 
-      <div class="detail__header">
+      <!-- <div class="detail__header">
         <h1 class="detail__title font-size-l">{title}</h1>
-      </div>
+      </div> -->
     </header>
     <div class="detail__body">
       <div class="flow max-width-m">

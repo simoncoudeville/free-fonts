@@ -56,9 +56,10 @@ const currentPath = pathname.slice(1); // remove the first "/"
         posts.map((post) => (
           <Article
             slug={post.slug}
-            image={post.data.preview}
             title={post.data.title}
-            authors={post.data.authors}
+            foundry={post.data.foundry}
+            styles={post.data.styles}
+            license={post.data.license}
           />
         ))
       }

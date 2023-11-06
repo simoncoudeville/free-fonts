@@ -26,7 +26,6 @@ const currentPath = pathname.slice(1); // remove the first "/"
     {
       posts.map((post) => (
         <Article
-          size={post.data.size}
           slug={post.slug}
           image={post.data.preview}
           title={post.data.title}

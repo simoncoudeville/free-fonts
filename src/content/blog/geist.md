@@ -1,12 +1,12 @@
 ---
-title: "Anton"
+title: "Geist"
 pubDate: "Oct 17 2023"
-foundry: "Vernon Adams"
-foundryLink: "https://fonts.google.com/?query=Vernon+Adams"
-downloadLink: "https://fonts.google.com/specimen/Anton"
-tags: ["Sans Serif", "Display"]
-styles: "1 style"
-variable: false
+foundry: "Vercel"
+foundryLink: "https://vercel.com/font/sans"
+downloadLink: "https://vercel.com/font/sans"
+tags: ["Sans Serif"]
+styles: "9 styles + variable"
+variable: true
 license: "SIL Open Font License, Version 1.1"
 ---
 

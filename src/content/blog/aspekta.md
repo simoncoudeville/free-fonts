@@ -1,12 +1,12 @@
 ---
-title: "Anton"
+title: "Aspekta"
 pubDate: "Oct 17 2023"
-foundry: "Vernon Adams"
-foundryLink: "https://fonts.google.com/?query=Vernon+Adams"
-downloadLink: "https://fonts.google.com/specimen/Anton"
-tags: ["Sans Serif", "Display"]
-styles: "1 style"
-variable: false
+foundry: "Ivo Dolenc"
+foundryLink: "https://github.com/ivodolenc"
+downloadLink: "https://github.com/ivodolenc/aspekta"
+tags: ["Sans Serif"]
+styles: "10 styles + Variable"
+variable: true
 license: "SIL Open Font License, Version 1.1"
 ---
 

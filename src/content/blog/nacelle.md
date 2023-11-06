@@ -1,11 +1,11 @@
 ---
-title: "Anton"
+title: "Nacelle"
 pubDate: "Oct 17 2023"
-foundry: "Vernon Adams"
-foundryLink: "https://fonts.google.com/?query=Vernon+Adams"
-downloadLink: "https://fonts.google.com/specimen/Anton"
-tags: ["Sans Serif", "Display"]
-styles: "1 style"
+foundry: "Dotcolon"
+foundryLink: "https://dotcolon.net/"
+downloadLink: "https://dotcolon.net/font/nacelle/"
+tags: ["Sans Serif"]
+styles: "Full family"
 variable: false
 license: "SIL Open Font License, Version 1.1"
 ---
