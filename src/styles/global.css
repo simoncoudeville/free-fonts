@@ -2,8 +2,14 @@
 
 @font-face {
 	font-family: "GeistVF";
-	src: url("/fonts/GeistVF.woff2") format("woff2-variations");
-	font-weight: 100 900;
+	src: url("/fonts/GeistVF.woff2") format("woff2");
+	font-weight: 32 240;
+}
+
+@font-face {
+	font-family: "GeistMonoVF";
+	src: url("/fonts/GeistMonoVF.woff2") format("woff2");
+	font-weight: 32 240;
 }
 
 @font-face {
@@ -112,7 +118,7 @@
 	--global-color-red: hsl(0deg 68% 42%);
 	--global-color-khaki: hsl(100deg 59% 28%);
 
-	--global-color-neutral-hue: 100deg;
+	--global-color-neutral-hue: 180deg;
 	--global-color-neutral-000: #ffffff;
 	--global-color-neutral-025: hsl(var(--global-color-neutral-hue) 5% 97.5%);
 	--global-color-neutral-050: hsl(var(--global-color-neutral-hue) 5% 95%);
@@ -125,8 +131,9 @@
 	--global-color-neutral-600: hsl(var(--global-color-neutral-hue) 5% 40%);
 	--global-color-neutral-700: hsl(var(--global-color-neutral-hue) 5% 30%);
 	--global-color-neutral-800: hsl(var(--global-color-neutral-hue) 5% 20%);
+	--global-color-neutral-850: hsl(var(--global-color-neutral-hue) 5% 12.5%);
 	--global-color-neutral-900: hsl(var(--global-color-neutral-hue) 5% 10%);
-	--global-color-neutral-1000: hsl(var(--global-color-neutral-hue) 5% 0%);
+	--global-color-neutral-1000: hsl(var(--global-color-neutral-hue) 5% 5%);
 
 	--global-foregroundColor: var(--global-color-neutral-050);
 	--global-foregroundColor-hover: var(--global-color-neutral-075);
@@ -135,18 +142,21 @@
 	--global-meta-color: var(--global-color-neutral-500);
 	--global-borderColor: var(--global-color-neutral-100);
 	--global-borderColor-hard: var(--global-color-neutral-200);
+	--global-link-underlineColor: var(--global-meta-color);
 
 	--global-borderRadius: .5rem;
 	--global-borderRadius-l: 1rem;
 
 	/* --global-fontFamily: "Graphik Web", sans-serif; */
 	/* --global-fontFamily: "Axalp Grotesk", sans-serif; */
-	/* --global-fontFamily: "GeistVF", sans-serif; */
-	--global-fontFamily: "Geist Web", sans-serif;
+	/* --global-fontFamily: "Manrope", sans-serif; */
+	--global-fontFamily: "GeistVF", sans-serif;
+	/* --global-fontFamily: "Geist Web", sans-serif; */
 	/* --global-fontFamily: "Aspekta", sans-serif; */
 	/* --global-fontFamily: "General Sans", sans-serif; */
 	/* --global-fontFamily: "DM Sans", sans-serif; */
 	/* --global-fontFamily: "Jakarta Sans", sans-serif; */
+	--global-fontFamily-mono: "GeistMonoVF", monospace;
 
 	--global-easeOutQuad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	--global-easeInQuad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
@@ -195,6 +205,14 @@
 	--global-animation-duration-xx-fast: 100ms;
 	--global-animation-duration-xxx-fast: 50ms;
 
+	/* typography */
+	--global-fontSize: 18;
+
+	--global-fontWeight-light: 68;
+	--global-fontWeight-regular: 84;
+	--global-fontWeight-medium: 106;
+
+
 	/* whitespace */
 
 	--global-space-xxxs: .25rem;
@@ -208,8 +226,8 @@
 	--global-space-xxxl: 6rem;
 
 	--global-grid-item-padding: var(--global-space-m);
-	--global-grid-padding: var(--global-space-s);
-	--global-page-padding: var(--global-grid-padding);
+	--global-grid-padding: var(--global-space-m);
+	--global-page-padding: var(--global-space-m);
 
 	@media (--small-viewport) {
 		--global-page-padding: calc(var(--global-grid-padding) + var(--global-grid-item-padding));
@@ -219,7 +237,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--global-foregroundColor: var(--global-color-neutral-900);
-		--global-foregroundColor-hover: var(--global-color-neutral-1000);
+		--global-foregroundColor-hover: var(--global-color-neutral-850);
 		--global-backgroundColor: var(--global-color-neutral-1000);
 		--global-text-color: var(--global-color-neutral-000);
 		--global-meta-color: var(--global-color-neutral-500);
@@ -241,8 +259,9 @@
 html {
 	font-family: var(--global-fontFamily);
 	/* font-weight: 400; */
-	font-weight: 300;
-	font-size: calc(18/16 * 1rem);
+	font-weight: var(--global-fontWeight-light);
+	/* font-variation-settings: "wght" 300; */
+	font-size: calc(var(--global-fontSize)/16 * 1rem);
 	line-height: 1.5;
 	background-color: var(--global-backgroundColor);
 	color: var(--global-text-color);
@@ -281,7 +300,13 @@ h2 {
 
 a {
 	text-decoration: none;
-	color: inherit;
+	color: currentColor;
+}
+
+a:not([class]) {
+	text-decoration: underline;
+	text-decoration-skip-ink: auto;
+	text-decoration-color: var(--global-link-underlineColor);
 }
 
 dl {
@@ -333,17 +358,20 @@ dt {
 	gap: var(--global-grid-padding);
 	padding: 0 var(--global-grid-padding) var(--global-page-padding);
 	/* dense grid */
-	grid-auto-flow: dense;
-	grid-template-columns: repeat(12, 1fr);
+	/* grid-auto-flow: dense; */
+	/* responsive grid */
+	grid-template-columns: repeat(auto-fill, minmax(min(26rem, 100%), 1fr));
+
+	/* grid-template-columns: repeat(12, 1fr); */
 	/* margin-bottom: var(--global-grid-gap);	 */
 }
 
 .item {
-	grid-column: 1 / -1;
+	/* grid-column: 1 / -1; */
 
-	@media (--small-viewport) {
+	/* @media (--small-viewport) {
 		grid-column: span 6;
-	}
+	} */
 
 	/* @media (--medium-viewport) {
 		grid-column: span 4;
@@ -368,24 +396,42 @@ dt {
 	height: 100%;
 	border-radius: var(--global-borderRadius);
 	text-decoration: none;
-	/* background-color: var(--global-foregroundColor); */
+	background-color: var(--global-foregroundColor);
 	display: grid;
 	gap: var(--global-space-l);
 	/* padding: var(--global-space-m) var(--global-space-m) var(--global-space-xl); */
 	padding: var(--global-grid-item-padding) var(--global-grid-item-padding);
 	transition: all var(--global-animation-duration-x-fast) var(--global-easeInOut);
-	border: 1px solid var(--global-borderColor-hard);
+	/* border: 1px solid var(--global-foregroundColor); */
 
 	&:hover {
 		background-color: var(--global-foregroundColor-hover);
 	}
 }
 
+.item__status {
+	grid-row: 1;
+	grid-column: 1;
+	/* font-family: var(--global-fontFamily-mono); */
+	text-transform: uppercase;
+	font-size: calc(12 / var(--global-fontSize) * 1rem);
+	letter-spacing: .05em;
+	place-self: start;
+	line-height: 1;
+	/* color: var(--global-muted-color); */
+	/* background-color: var(--global-backgroundColor); */
+	/* border: 1px solid var(--global-text-color); */
+	border: 1px solid currentColor;
+	padding: calc(var(--global-space-xxxs) + 2px) var(--global-space-xs) calc(var(--global-space-xxxs) + 1px);
+	border-radius: calc(var(--global-borderRadius) * 2);
+	/* font-weight: var(--fw-normal); */
+	font-weight: var(--global-fontWeight-regular);
+}
+
 .item__header {
-	grid-row: 2;
+	grid-row: 1;
 	grid-column: 1;
 	align-self: end;
-	/* margin-bottom: calc(-1 * var(--global-grid-item-padding)); */
 	z-index: 200;
 }
 
@@ -413,9 +459,9 @@ dt {
 	/* margin: auto; */
 	width: 100%;
 	padding: var(--item__img-padding) 0;
-	margin-bottom: calc(var(--item__img-padding) * -.5);
-	/* height: auto; */
-	/* aspect-ratio: 1 / 1; */
+	/* margin-bottom: calc(var(--item__img-padding) * -.5); */
+	height: auto;
+	aspect-ratio: 5 / 3;
 	transition: var(--global-animation-duration-x-fast) var(--global-easeInOut);
 	z-index: 100;
 	display: flex;
@@ -429,7 +475,7 @@ dt {
 	& svg {
 		/* max-width: 22.5rem;
 		height: auto; */
-		max-height: 2.5rem;
+		max-height: 3rem;
 		width: auto;
 		fill: var(--global-text-color);
 		overflow: visible;
@@ -482,12 +528,20 @@ dt {
 }
 
 .detail__intro {
-	min-height: 100dvh;
+	min-height: 75dvh;
+	/* min-height: calc(100dvh - var(--global-page-padding) * 2); */
 	display: grid;
 	/* grid-template-rows: max-content min-content; */
 	/* grid-template-rows: 1fr auto; */
 	/* display: flex;
 	flex-direction: column; */
+
+	@media (--small-viewport) {
+		min-height: calc(100dvh - var(--global-page-padding));
+		min-height: 100vh;
+		/* grid-template-rows: max-content min-content; */
+		/* grid-template-rows: 1fr auto; */
+	}
 }
 
 .detail__img {
@@ -530,6 +584,14 @@ dt {
 			fill: inherit;
 		}
 	}
+}
+
+.download {
+	display: inline-block;
+	padding: var(--global-space-xs) var(--global-space-m);
+	border-radius: var(--global-borderRadius);
+	/* background-color: var(--global-foregroundColor); */
+	border: 1px solid currentColor;
 }
 
 ::view-transition-new(detail-image) {
@@ -731,6 +793,7 @@ dt {
 	border-radius: var(--global-borderRadius);
 	view-transition-name: back;
 	background-color: var(--global-backgroundColor);
+	background-color: var(--global-foregroundColor);
 	padding: var(--global-space-xs);
 
 	/* & svg {

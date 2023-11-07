@@ -4,7 +4,10 @@ const { tags, currentPath, amount } = Astro.props;
 ---
 
 <header class="header">
-  <h1 class="header__logo font-size-base"><a href="./">Silly fonts</a></h1>
+  <h1 class="header__logo font-size-base">
+    <!-- <a class="header__link" href="./">Unbound</a> -->
+    <a class="header__link" href="./">Loose type</a>
+  </h1>
   <div class="header__nav">
     <Nav tags={tags} currentPath={currentPath} />
   </div>
@@ -50,7 +53,7 @@ const { tags, currentPath, amount } = Astro.props;
     </svg>
   </button>
   <p class="header__amount color-meta">
-    {amount} fonts
+    {amount}&nbsp;{amount === 1 ? "font" : "fonts"}
   </p>
 </header>
 

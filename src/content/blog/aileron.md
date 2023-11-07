@@ -1,11 +1,11 @@
 ---
 title: "Aileron"
-pubDate: "Oct 17 2023"
+pubDate: 2023-10-17
 foundry: "Dotcolon"
 foundryLink: "https://dotcolon.net/"
 downloadLink: "https://dotcolon.net/font/aileron/"
-tags: ["Sans Serif"]
-styles: "Full family"
+tags: ["sans-serif"]
+styles: 8
 variable: false
 license: "No Rights Reserved"
 draft: true

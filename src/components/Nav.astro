@@ -1,5 +1,12 @@
 ---
 const { currentPath, tags } = Astro.props;
+
+// reorder tags alphabetically
+tags.sort((a, b) => {
+  if (a < b) return 1;
+  if (a > b) return -1;
+  return 0;
+});
 ---
 
 <nav class="tags">
@@ -25,7 +32,7 @@ const { currentPath, tags } = Astro.props;
             }
             href={`/${tag}`}
           >
-            {tag}
+            {tag.replace(/-/g, " ")}
           </a>
         </li>
       ))

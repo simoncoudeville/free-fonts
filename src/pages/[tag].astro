@@ -11,7 +11,7 @@ export async function getStaticPaths() {
     await getCollection("blog", ({ data }) => {
       return data.draft !== true;
     })
-  ).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+  ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   const uniqueTags = [
     ...new Set(allPosts.map((post) => post.data.tags).flat()),
@@ -36,7 +36,14 @@ const { posts } = Astro.props;
 const { tags } = Astro.props;
 const { amount } = Astro.props;
 
-const tagUppercased = tag.charAt(0).toUpperCase() + tag.slice(1);
+// const tagUppercased =
+//   tag.charAt(0).toUpperCase() + tag.slice(1).replace(/-/g, " ");
+
+// title case tag
+const tagUppercased = tag
+  .split("-")
+  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+  .join(" ");
 
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.slice(1); // remove the first "/"
@@ -46,10 +53,14 @@ const currentPath = pathname.slice(1); // remove the first "/"
   <Header tags={tags} currentPath={currentPath} amount={amount} />
   <main class="main">
     <div class="intro">
-      <p class="font-size-l">
-        <span class="font-weight-bold">{amount}</span> products tagged with{" "}
-        <span class="font-weight-bold">{tagUppercased}</span>
+      <!-- <p>
+        {tagUppercased}
       </p>
+      <p>{amount}&nbsp;{amount === 1 ? "font" : "fonts"}</p> -->
+      <p>
+        {amount}&nbsp;{tagUppercased}&nbsp;{amount === 1 ? "font" : "fonts"}
+      </p>
+      <!-- <p>{amount}&nbsp;{amount === 1 ? "font" : "fonts"}</p> -->
     </div>
     <div class="items">
       {
@@ -60,6 +71,7 @@ const currentPath = pathname.slice(1); // remove the first "/"
             foundry={post.data.foundry}
             styles={post.data.styles}
             license={post.data.license}
+            variable={post.data.variable}
           />
         ))
       }

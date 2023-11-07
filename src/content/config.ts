@@ -5,12 +5,11 @@ const blog = defineCollection({
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		foundry: z.string(),
-		foundryLink: z.string().optional(),
-		// Transform string to Date object
-		pubDate: z.coerce.date(),
+		foundryLink: z.string(),
+		pubDate: z.date(),
 		tags: z.array(z.string()),
 		downloadLink: z.string(),
-		styles: z.string(),
+		styles: z.number(),
 		license: z.string(),
 		variable: z.boolean(),
 		draft: z.boolean().optional(),

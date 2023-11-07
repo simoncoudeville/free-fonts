@@ -2,41 +2,85 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BackLink from "../components/BackLink.astro";
 import type { CollectionEntry } from "astro:content";
+import fg from "fast-glob";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, downloadLink } = Astro.props;
+const { title, foundry, foundryLink, downloadLink, license, styles, variable } =
+  Astro.props;
 const slug = title.toLowerCase().replace(/\s/g, "-");
 const id = title.toLowerCase().replace(/\s/g, "-");
-const { default: svg } = await import(`../svg/${slug}.svg?raw`);
+const { default: svg } = await import(
+  `../svg/${slug}/gallery/${slug}-1.svg?raw`
+);
+// get all the svg files in the gallery folder of the slug folder
+const gallery = Astro.glob(`../svg/${slug}/gallery/*.svg?raw`);
 ---
 
 <BaseLayout title={title}>
   <BackLink />
-  <article class="detail">
+  <main class="detail">
     <header class="detail__intro">
       <h1 class="detail__img">
         <Fragment set:html={svg} />
       </h1>
-
+      <!-- <div class="gallery">
+        {
+          gallery.map((item) => (
+            <div class="gallery__item">
+              <Fragment set:html={item} />
+            </div>
+          ))
+        }
+      </div> -->
       <!-- <div class="detail__header">
         <h1 class="detail__title font-size-l">{title}</h1>
       </div> -->
     </header>
     <div class="detail__body">
       <div class="flow max-width-m">
+        <!-- <h2 class="color-meta">Info</h2> -->
         <slot />
+        <p>
+          <a
+            class="download"
+            href={downloadLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get it here
+          </a>
+        </p>
       </div>
       <div class="flow">
-        <dl>
-          <dt>Company</dt>
+        <div>
+          <h2 class="color-meta">Designed By</h2>
+          <p>
+            <a href={foundryLink}>{foundry}</a>
+          </p>
+        </div>
+        <div>
+          <h2 class="color-meta">Styles</h2>
+          <p>
+            {styles}&nbsp;{variable ? "+ variable" : ""}
+          </p>
+        </div>
+        <div>
+          <h2 class="color-meta">Licence</h2>
+          <p>
+            {license}
+          </p>
+        </div>
+        <!-- <dl>
+          <dt>Designed By</dt>
+          <dd><a href={foundryLink}>{foundry}</a></dd>
           <dt>Image credit</dt>
           <dd>
             <a href={downloadLink} target="_blank" rel="noopener noreferrer">
               Download
             </a>
           </dd>
-        </dl>
+        </dl> -->
         <!-- <p class="color-meta">
           Image courtesy of
           <a href={downloadLink} target="_blank" rel="noopener noreferrer">
@@ -45,5 +89,5 @@ const { default: svg } = await import(`../svg/${slug}.svg?raw`);
         </p> -->
       </div>
     </div>
-  </article>
+  </main>
 </BaseLayout>

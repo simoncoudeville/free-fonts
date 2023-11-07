@@ -1,6 +1,6 @@
 ---
-const { slug, title, foundry, styles, license } = Astro.props;
-const { default: svg } = await import(`../svg/${slug}.svg?raw`);
+const { slug, title, foundry, styles, variable, date, license } = Astro.props;
+const { default: svg } = await import(`../svg/${slug}/preview.svg?raw`);
 // make an id for each item based on the title
 const id = title.toLowerCase().replace(/\s/g, "-");
 ---
@@ -10,10 +10,18 @@ const id = title.toLowerCase().replace(/\s/g, "-");
     <h2 class="item__img">
       <Fragment set:html={svg} />
     </h2>
+    {
+      date > new Date(Date.now() - 2592000000) && (
+        <p class="item__status">New</p>
+      )
+    }
     <div class="item__header">
-      <!-- <h2 class="item__title">{title}</h2> -->
-      <!-- <p class="item__foundry">By {foundry}</p> -->
-      <p class="item__styles">{styles}</p>
+      <p class="item__foundry">By {foundry}</p>
+      <p class="item__styles color-meta">
+        {styles}&nbsp;{styles === 1 ? "style" : "styles"}&nbsp;{
+          variable ? "+ variable" : ""
+        }
+      </p>
       <!-- <p class="item__license">{license}</p> -->
     </div>
   </a>
