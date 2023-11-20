@@ -5,8 +5,7 @@ const { tags, currentPath, amount } = Astro.props;
 
 <header class="header">
   <h1 class="header__logo font-size-base">
-    <!-- <a class="header__link" href="./">Unbound</a> -->
-    <a class="header__link" href="./">Loose type</a>
+    <a class="header__link" href="./">Fine Free Fonts</a>
   </h1>
   <div class="header__nav">
     <Nav tags={tags} currentPath={currentPath} />
@@ -59,14 +58,7 @@ const { tags, currentPath, amount } = Astro.props;
 
 <script>
   // show mobile-nav on mobile when clicking all the js-toggle-nav-button elements
-  document.addEventListener("astro:page-load", () => {
-    let toggleNavButtons = document.querySelectorAll(".js-toggle-nav-button");
-    toggleNavButtons.forEach((toggleNavButton) => {
-      toggleNavButton.addEventListener("click", () => {
-        document.body.classList.toggle("show-mobile-nav");
-      });
-    });
-    //Let the header Slide up on scroll down, slide down on scroll up
+  const handleHeaderScroll = () => {
     let prevScrollpos = window.pageYOffset;
     window.onscroll = function () {
       let currentScrollPos = window.pageYOffset;
@@ -82,29 +74,21 @@ const { tags, currentPath, amount } = Astro.props;
         prevScrollpos = currentScrollPos; // Update prevScrollpos after adding the class
       }
     };
-  });
-</script>
-
-{
-  /*
-<script>
-  const handleTagLink = () => {
-    let itemImages = document.querySelectorAll(".item__img");
-    itemImages.forEach((itemImage) => {
-      itemImage.style.setProperty("view-transition-name", "none");
-      // remove the data-astro-transition-scope attribute
-      itemImage.removeAttribute("data-astro-transition-scope");
-      // remove the view-transition-name style
-    });
   };
 
+  handleHeaderScroll();
+
   document.addEventListener("astro:page-load", () => {
-    let tagLinks = document.querySelectorAll(".tags__link");
-    // handleTagLink();
-    tagLinks.forEach((tagLink) => {
-      tagLink.addEventListener("click", handleTagLink);
+    let toggleNavButtons = document.querySelectorAll(".js-toggle-nav-button");
+    toggleNavButtons.forEach((toggleNavButton) => {
+      toggleNavButton.addEventListener("click", () => {
+        document.body.classList.toggle("show-mobile-nav");
+      });
     });
+    handleHeaderScroll();
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    handleHeaderScroll();
   });
 </script>
-*/
-}

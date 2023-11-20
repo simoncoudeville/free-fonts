@@ -2,8 +2,6 @@
 
 ---
 
-{
-  /*
 <a href="/" class="back">
   <svg
     class="icon icon--back"
@@ -22,13 +20,14 @@
       stroke-width="12"></polyline>
   </svg>
 </a>
-*/
-}
 
+{
+  /*
 <a href="/" class="back">
   &lt;- <span class="sr-only">back</span>
 </a>
-
+*/
+}
 <script>
   import { navigate } from "astro:transitions/client";
 
@@ -50,7 +49,32 @@
     }
   }
 
+  const handleBackScroll = () => {
+    let prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+      let currentScrollPos = window.pageYOffset;
+      if (prevScrollpos - currentScrollPos >= 50) {
+        document.body.classList.remove("hide-header");
+        prevScrollpos = currentScrollPos; // Update prevScrollpos after removing the class
+        // else if the user scrolled to the top of the page
+      } else if (currentScrollPos === 0) {
+        document.body.classList.remove("hide-header");
+        prevScrollpos = currentScrollPos; // Update prevScrollpos after removing the class
+      } else if (currentScrollPos > prevScrollpos) {
+        document.body.classList.add("hide-header");
+        prevScrollpos = currentScrollPos; // Update prevScrollpos after adding the class
+      }
+    };
+  };
+
+  handleBackScroll();
+
   document.addEventListener("astro:page-load", () => {
     navigateBack();
+    handleBackScroll();
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    handleBackScroll();
   });
 </script>
