@@ -1,14 +1,17 @@
 ---
-const { slug, title, foundry, styles, variable, date, license } = Astro.props;
-const { default: svg } = await import(`../svg/${slug}/preview.svg?raw`);
-// make an id for each item based on the title
-const id = title.toLowerCase().replace(/\s/g, "-");
+import { Image } from "astro:assets";
+const { slug, title, preview, foundry, styles, variable, date, license } =
+  Astro.props;
+// get the svg file path from preview
+// const svgFilePath = preview.toString();
 ---
 
 <article class={`item`}>
   <a class="item__link" href={`/${slug}/`} rel="prefetch">
     <h2 class="item__img">
-      <Fragment set:html={svg} />
+      <!-- <Fragment set:html={svg} /> -->
+      <!-- <img src={preview} alt="" /> -->
+      <Image src={preview} alt={title} format="svg" />
     </h2>
     {
       date > new Date(Date.now() - 2592000000) && (

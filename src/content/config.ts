@@ -4,10 +4,16 @@ const blog = defineCollection({
 	// Type-check frontmatter using a schema
 	schema: ({ image }) => z.object({
 		title: z.string(),
+		description: z.string().optional(),
 		foundry: z.string(),
 		foundryLink: z.string(),
 		pubDate: z.date(),
+		// preview: z.string().optional(),
+		preview: image().optional(),
+		// preview: z.string().optional(),
+		gallery: z.array(image()).optional(),
 		tags: z.array(z.string()),
+		features: z.array(z.string()).optional(),
 		downloadLink: z.string(),
 		styles: z.number(),
 		license: z.string(),
