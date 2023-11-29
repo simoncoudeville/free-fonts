@@ -5,7 +5,7 @@ pubDate: 2023-09-02
 foundry: "Vercel"
 foundryLink: "https://vercel.com/font/sans"
 downloadLink: "https://vercel.com/font/sans"
-preview: "../../svg/geist-sans/preview.svg"
+preview: "../../svg/geist-sans/thumb.svg"
 gallery:
   [
     "../../svg/geist-sans/gallery/geist-sans-1.svg",
@@ -16,6 +16,7 @@ gallery:
 tags: ["sans-serif"]
 styles: 9
 variable: true
+axes: ["wght"]
 features:
   [
     "aalt",

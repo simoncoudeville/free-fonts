@@ -14,6 +14,7 @@ const blog = defineCollection({
 		gallery: z.array(image()).optional(),
 		tags: z.array(z.string()),
 		features: z.array(z.string()).optional(),
+		axes: z.array(z.string()).optional(),
 		downloadLink: z.string(),
 		styles: z.number(),
 		license: z.string(),
