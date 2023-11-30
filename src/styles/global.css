@@ -2,29 +2,15 @@
 
 @font-face {
 	font-family: "GeistVF";
-	src: url("/fonts/GeistVF.woff2") format("woff2");
-	font-weight: 32 240;
+	src: url("/fonts/GeistVariableVF.woff2") format("woff2");
+	font-weight: 100 900;
 	font-display: swap;
 }
 
 @font-face {
 	font-family: "GeistMonoVF";
-	src: url("/fonts/GeistMonoVF.woff2") format("woff2");
-	font-weight: 32 240;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Geist Web";
-	src: url("/fonts/Geist-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Geist Web";
-	src: url("/fonts/Geist-Light.woff2") format("woff2");
-	font-weight: 300;
+	src: url("/fonts/GeistMonoVariableVF.woff2") format("woff2");
+	font-weight: 100 900;
 	font-display: swap;
 }
 
@@ -213,9 +199,9 @@
 	/* typography */
 	--global-fontSize: 18;
 
-	--global-fontWeight-light: 68;
-	--global-fontWeight-regular: 84;
-	--global-fontWeight-medium: 106;
+	--global-fontWeight-light: 300;
+	--global-fontWeight-regular: 400;
+	--global-fontWeight-medium: 500;
 
 	/* whitespace */
 
@@ -596,11 +582,14 @@ a:not([class]) {
 	& img {
 		/* max-width: 22.5rem;
 			height: auto; */
-		/* max-width: 50rem; */
 		/* width: 100%; */
+		/* max-width: 50rem; */
 		/* height: auto; */
+		/* height: 100%; */
+		/* max-height: 100px; */
+		/* width: auto; */
 		fill: var(--global-text-color);
-		overflow: visible;
+		/* overflow: visible; */
 
 		& path {
 			fill: inherit;
@@ -812,7 +801,7 @@ a:not([class]) {
 	font-family: var(--global-fontFamily-mono);
 	/* line-height: 1; */
 	/* font-weight: 84; */
-	font-feature-settings: "zero";
+	/* font-feature-settings: "zero"; */
 }
 
 *+.features {

@@ -1,0 +1,24 @@
+---
+const { title, font, slug } = Astro.props;
+import opentype from "opentype.js";
+
+import fs from "node:fs";
+import path from "node:path";
+
+const fontPath = path.resolve(`src/fonts/${slug}/${font}`);
+const buffer = fs.readFileSync(fontPath).buffer;
+const fontFile = opentype.parse(await buffer);
+const fontText = fontFile.getPath(title, 0, 0, 20);
+const fontSVGPath = fontText.toPathData();
+const boundingBox = fontText.getBoundingBox();
+
+// Assuming boundingBox is an object with x1, y1, x2, y2 properties
+const { x1, y1, x2, y2 } = boundingBox;
+
+// Format the values into a viewBox attribute string
+const viewBox = `${x1} ${y1} ${x2 - x1} ${y2 - y1}`;
+---
+
+<svg height="100" viewBox={viewBox}>
+  <path d={fontSVGPath}></path>
+</svg>

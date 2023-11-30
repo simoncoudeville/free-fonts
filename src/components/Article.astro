@@ -1,17 +1,19 @@
 ---
 import { Image } from "astro:assets";
-const { slug, title, preview, foundry, styles, variable, date, license } =
+import Thumb from "../components/Thumb.astro";
+const { slug, title, preview, foundry, styles, variable, date, font } =
   Astro.props;
 // get the svg file path from preview
 // const svgFilePath = preview.toString();
 
-const { default: svg } = await import(`../svg/${slug}/thumb.svg?raw`);
+// const { default: svg } = await import(`../svg/${slug}/thumb.svg?raw`);
 ---
 
 <article class={`item`}>
   <a class="item__link" href={`/${slug}/`} rel="prefetch">
     <h2 class="item__img">
-      <Fragment set:html={svg} />
+      <Thumb slug={slug} title={title} font={font} />
+      <!-- <Fragment set:html={svg} /> -->
       <!-- <img src={preview} alt="" /> -->
       <!-- <Image src={preview} alt={title} format="svg" /> -->
     </h2>

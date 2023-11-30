@@ -4,31 +4,11 @@ description: Libre Caslon Condensed is an open-source condensed serif alternativ
 pubDate: 2023-10-17
 foundry: "Ertekin Erdin"
 foundryLink: "https://ertekin.xyz/"
-preview: "../../svg/libre-caslon-condensed/thumb.svg"
-gallery:
-  [
-    "../../svg/libre-caslon-condensed/gallery/libre-caslon-condensed-1.svg",
-    "../../svg/libre-caslon-condensed/gallery/libre-caslon-condensed-2.svg",
-    "../../svg/libre-caslon-condensed/gallery/libre-caslon-condensed-3.svg",
-  ]
+font: "LibreCaslonCondensed[wght].ttf"
 downloadLink: "https://github.com/ertekinno/libre-caslon-condensed"
 tags: ["serif", "display"]
-features:
-  [
-    "aalt",
-    "dlig",
-    "frac",
-    "liga",
-    "onum",
-    "tnum",
-    "zero",
-    "ordn",
-    "sinf",
-    "sups",
-  ]
 styles: 8
 variable: true
-axes: ["wght"]
 license: "SIL Open Font License, Version 1.1"
 ---
 

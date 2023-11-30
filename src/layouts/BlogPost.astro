@@ -1,11 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BackLink from "../components/BackLink.astro";
+import Thumb from "../components/Thumb.astro";
 import type { CollectionEntry } from "astro:content";
+import opentype from "opentype.js";
+
 import fs from "node:fs";
 import path from "node:path";
-
-import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -15,31 +16,67 @@ const {
   foundry,
   foundryLink,
   downloadLink,
-  gallery,
-  preview,
-  axes,
+  font,
   license,
   styles,
-  features,
   variable,
   pubDate,
 } = Astro.props;
 
-// count the amount of features and make a new variable with the amount
-// const featureAmount = features.length;
-
 const slug = title.toLowerCase().replace(/\s/g, "-");
-// const id = title.toLowerCase().replace(/\s/g, "-");
-const { default: svg } = await import(`../svg/${slug}/thumb.svg?raw`);
 
 // const svgData = fs.readFileSync(
 //   path.resolve(`src/svg/${slug}/thumb.svg`),
 //   "utf8"
 // );
 
-const svgPath = path.resolve(`src/svg/${slug}/thumb.svg`);
+// const svgPath = path.resolve(`src/svg/${slug}/thumb.svg`);
 
-const svgData = fs.statSync(svgPath).isFile();
+const fontPath = path.resolve(`src/fonts/${slug}/${font}`);
+const buffer = fs.readFileSync(fontPath).buffer;
+const fontFile = opentype.parse(await buffer);
+const fontData = fontFile.tables;
+const tableNames = Object.keys(fontData);
+const gsubArray = fontData["gsub"].features;
+
+// get all the keys with the name 'tag' from the gsubArray and put the values in a new array
+const fontFeatures = gsubArray.map((key) => key.tag);
+
+// sometimes the fontFeatures array contains values from ss01 to ss20, replace them with a string ss01-ss20 and do the same for cv01 to cv20
+let ssAmount = fontFeatures.filter((feature) => feature.includes("ss")).length;
+let cvAmount = fontFeatures.filter((feature) => feature.includes("cv")).length;
+
+// rewrite ssAmount and cvAmount as for example 08 if it's 8
+ssAmount = ssAmount < 10 ? `0${ssAmount}` : ssAmount;
+cvAmount = cvAmount < 10 ? `0${cvAmount}` : cvAmount;
+
+// now replace the cv values with one string cv01-cv20 based on the amount of cv values
+if (cvAmount > 0) {
+  // add the new string to the array at the index of the first cv value
+  fontFeatures.splice(
+    fontFeatures.indexOf("cv01"),
+    cvAmount,
+    `cv01 -> cv${cvAmount}`
+  );
+}
+
+//now replace the ss values with one string ss01-ss20 based on the amount of ss values
+if (ssAmount > 0) {
+  // add the new string to the array at the index of the first ss value
+  fontFeatures.splice(
+    fontFeatures.indexOf("ss01"),
+    ssAmount,
+    `ss01 -> ss${ssAmount}`
+  );
+}
+
+// get all the unique values from the fontFeatures array
+let uniqueFeatures = [...new Set(fontFeatures)];
+
+const fvarArray = fontData["fvar"].axes;
+const fontAxes = fvarArray.map((key) => key.tag);
+
+console.log(fvarArray);
 
 // remove the https:// from the foundry link
 const downloadLinkShort = downloadLink.replace(/(^\w+:|^)\/\//, "");
@@ -104,6 +141,10 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
     flex-grow: 1;
     height: 1px;
     background-color: hotpink;
+  }
+
+  .svg {
+    overflow: visible;
   }
 </style>
 
@@ -212,7 +253,8 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
       <h1 class="detail__img">
         <span class="sr-only">{title}</span>
         <!-- <Image src={preview} alt={title} /> -->
-        <Fragment set:html={svg} />
+        <!-- <Fragment set:html={svg} /> -->
+        <Thumb slug={slug} title={title} font={font} />
       </h1>
       {
         /*
@@ -238,9 +280,10 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
       </div> -->
     </header>
     <div class="detail__body">
-      <p>
-        {svgData}
-      </p>
+      <ul>
+        {tableNames.map((name) => <li>{name}</li>)}
+      </ul>
+      <hr />
       <dl class="table">
         <div class="table__row">
           <dt>Info</dt>
@@ -265,7 +308,7 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
               <dt>Axes</dt>
               <dd>
                 <ul class="list-reset features">
-                  {axes.map((axis) => (
+                  {fontAxes.map((axis) => (
                     <li class="feature">{axis}&nbsp;</li>
                   ))}
                 </ul>
@@ -278,11 +321,23 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
           <dd>
             <ul class="list-reset features">
               {
-                features.map((feature) => (
+                uniqueFeatures.map((feature) => (
                   <li class="feature">{feature}&nbsp;</li>
+                  // make sure the last item doesn't have a comma after it
                 ))
               }
             </ul>
+            {
+              /*
+            <ul class="list-reset features">
+              {
+                uniqueFeatures.map((feature) => (
+                  <li class="feature">{feature.value}&nbsp;</li>
+                ))
+              }
+            </ul>
+            */
+            }
           </dd>
         </div>
         <div class="table__row">
@@ -299,54 +354,17 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
         </div>
       </dl>
       {
-        /*
-      <div class="flow">
-        <div>
-          <h2 class="color-meta">Designed By</h2>
-          <p>
-            <a href={foundryLink}>{foundry}</a>
-          </p>
-        </div>
-        <div>
-          <h2 class="color-meta">Family</h2>
-          <p>
-            {styles}&nbsp;{styles === 1 ? "style" : "styles"}&nbsp;{
-              variable ? "+ variable" : " static"
-            }
-          </p>
-        </div>
-        <div>
-          <h2 class="color-meta">Licence</h2>
-          <p>
-            {license}
-          </p>
-        </div>
-        <div>
-          <h2 class="color-meta">{featureAmount} features</h2>
-          <ul class="list-reset features">
-            {
-              features.map((feature) => (
-                <li class="features__item">{feature}</li>
-              ))
-            }
-          </ul>
-        </div>
-
-    </div>
-    <div class="flow max-width-m">
-      <slot />
-      <p>
-        <a
-          class="download"
-          href={downloadLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Download
-        </a>
-      </p>
-    </div>
-            */
+        /* <div class="flow"> <div> <h2 class="color-meta">Designed By</h2>
+        <p> <a href={foundryLink}>{foundry}</a> </p> </div> <div> <h2
+        class="color-meta">Family</h2> <p> {styles}&nbsp;{styles === 1 ? "style"
+        : "styles"}&nbsp;{ variable ? "+ variable" : " static" } </p> </div>
+        <div> <h2 class="color-meta">Licence</h2> <p> {license} </p> </div>
+        <div> <h2 class="color-meta">{featureAmount} features</h2> <ul
+        class="list-reset features"> { features.map((feature) => ( <li
+        class="features__item">{feature}</li> )) } </ul> </div> </div> <div
+        class="flow max-width-m"> <slot /> <p> <a class="download"
+        href={downloadLink} target="_blank" rel="noopener noreferrer" > Download
+        </a> </p> </div> */
       }
     </div>
   </main>
