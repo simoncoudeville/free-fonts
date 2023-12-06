@@ -125,6 +125,18 @@
 	--global-color-neutral-900: hsl(var(--global-color-neutral-hue) 5% 10%);
 	--global-color-neutral-1000: hsl(var(--global-color-neutral-hue) 5% 5%);
 
+	/* --global-color-neutral-lightness: 0%;
+	--global-color-neutral-1000: hsl(0deg 0% var(--global-color-neutral-lightness) / 1);
+	--global-color-neutral-900: hsl(0deg 0% var(--global-color-neutral-lightness) / .9);
+	--global-color-neutral-800: hsl(0deg 0% var(--global-color-neutral-lightness) / .8);
+	--global-color-neutral-700: hsl(0deg 0% var(--global-color-neutral-lightness) / .7);
+	--global-color-neutral-600: hsl(0deg 0% var(--global-color-neutral-lightness) / .6);
+	--global-color-neutral-500: hsl(0deg 0% var(--global-color-neutral-lightness) / .5);
+	--global-color-neutral-400: hsl(0deg 0% var(--global-color-neutral-lightness) / .4);
+	--global-color-neutral-300: hsl(0deg 0% var(--global-color-neutral-lightness) / .3);
+	--global-color-neutral-200: hsl(0deg 0% var(--global-color-neutral-lightness) / .2);
+	--global-color-neutral-100: hsl(0deg 0% var(--global-color-neutral-lightness) / .1); */
+
 	--global-foregroundColor: var(--global-color-neutral-050);
 	--global-foregroundColor-hover: var(--global-color-neutral-075);
 	--global-backgroundColor: var(--global-color-neutral-000);
@@ -233,6 +245,12 @@
 		--global-meta-color: var(--global-color-neutral-500);
 		--global-borderColor: var(--global-color-neutral-900);
 		--global-borderColor-hard: var(--global-color-neutral-800);
+
+		/* --global-color-neutral-lightness: 100%;
+		--global-backgroundColor: black;
+		--global-foregroundColor: var(--global-color-neutral-100);
+		--global-foregroundColor-hover: var(--global-color-neutral-200);
+		--global-borderColor: var(--global-color-neutral-200); */
 	}
 }
 
@@ -521,9 +539,11 @@ a:not([class]) {
 
 .detail__intro {
 	/* height: calc(100vh - var(--global-space-m)); */
-	height: 100vh;
+	/* height: 100vh; */
 	/* min-height: 75dvh; */
-	/* min-height: calc(100dvh - var(--global-page-padding) * 2); */
+	/* min-height: calc(100dvh - var(--global-page-padding) - var(--global-space-m)); */
+	min-height: calc(100dvh - var(--global-page-padding) * 2);
+	/* min-height: 50vh; */
 	display: grid;
 	place-items: center;
 	/* grid-template-rows: auto max-content; */
@@ -798,10 +818,14 @@ a:not([class]) {
 	flex-wrap: wrap;
 	/* gap: 0 var(--global-space-xs); */
 	/* font-size: calc(13 / var(--global-fontSize) * 1rem); */
-	font-family: var(--global-fontFamily-mono);
+	/* font-family: var(--global-fontFamily-mono); */
 	/* line-height: 1; */
 	/* font-weight: 84; */
 	/* font-feature-settings: "zero"; */
+}
+
+.feature {
+	font-family: var(--global-fontFamily-mono);
 }
 
 *+.features {
@@ -859,8 +883,8 @@ a:not([class]) {
 	left: calc(var(--global-page-padding) / 2); */
 	/* top: var(--global-page-padding); */
 	top: var(--global-space-m);
-	left: var(--global-space-m);
-	/* left: var(--global-page-padding); */
+	/* left: var(--global-space-m); */
+	left: var(--global-page-padding);
 	z-index: 10;
 	/* display: flex; */
 	/* align-items: center; */
@@ -869,10 +893,10 @@ a:not([class]) {
 	/* border-radius: 100%; */
 	border-radius: var(--global-borderRadius);
 	view-transition-name: back;
-	background-color: var(--global-backgroundColor);
+	/* background-color: var(--global-backgroundColor); */
 	/* background-color: var(--global-foregroundColor); */
-	border: 1px solid var(--global-foregroundColor);
-	padding: var(--global-space-xs);
+	/* border: 1px solid var(--global-foregroundColor); */
+	/* padding: var(--global-space-xs); */
 
 	/* & svg {
 		fill: currentColor;

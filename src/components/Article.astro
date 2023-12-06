@@ -1,8 +1,17 @@
 ---
 import { Image } from "astro:assets";
 import Thumb from "../components/Thumb.astro";
-const { slug, title, preview, foundry, styles, variable, date, font } =
-  Astro.props;
+const {
+  slug,
+  title,
+  foundry,
+  weights,
+  italic,
+  variable,
+  date,
+  variableFont,
+  staticFont,
+} = Astro.props;
 // get the svg file path from preview
 // const svgFilePath = preview.toString();
 
@@ -12,22 +21,28 @@ const { slug, title, preview, foundry, styles, variable, date, font } =
 <article class={`item`}>
   <a class="item__link" href={`/${slug}/`} rel="prefetch">
     <h2 class="item__img">
-      <Thumb slug={slug} title={title} font={font} />
+      <Thumb slug={slug} title={title} font={staticFont} />
       <!-- <Fragment set:html={svg} /> -->
       <!-- <img src={preview} alt="" /> -->
       <!-- <Image src={preview} alt={title} format="svg" /> -->
     </h2>
     {
+      /*
       date > new Date(Date.now() - 2592000000) && (
         <p class="item__status">New</p>
       )
+    */
     }
     <div class="item__header">
       <p class="item__foundry">By {foundry}</p>
       <p class="item__styles color-meta">
-        {styles}&nbsp;{styles === 1 ? "style" : "styles"}&nbsp;{
+        <!-- {styles}&nbsp;{styles === 1 ? "style" : "styles"}&nbsp;{
           variable ? "+ variable" : ""
-        }
+        } -->
+        <!-- {weights} weights -->
+        <!-- {italic ? " + italics" : ""} -->
+        {italic ? weights * 2 : weights} styles
+        {variable ? " + variable" : ""}
       </p>
       <!-- <p class="item__license">{license}</p> -->
     </div>

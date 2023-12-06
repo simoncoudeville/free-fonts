@@ -4,11 +4,12 @@ import opentype from "opentype.js";
 
 import fs from "node:fs";
 import path from "node:path";
-
+const text = title;
+// const text = "find flights";
 const fontPath = path.resolve(`src/fonts/${slug}/${font}`);
 const buffer = fs.readFileSync(fontPath).buffer;
 const fontFile = opentype.parse(await buffer);
-const fontText = fontFile.getPath(title, 0, 0, 20);
+const fontText = fontFile.getPath(text, 0, 0, 20);
 const fontSVGPath = fontText.toPathData();
 const boundingBox = fontText.getBoundingBox();
 

@@ -1,17 +1,17 @@
 ---
 title: "Inter"
 pubDate: 2023-11-29
-description: Newsreader is an open-source serif typeface, designed for on-screen, longer-form reading. Imagining the wants and needs of readers of news streams and publishing platforms, Production Type designed a text family that could be elegant, sturdy, contemporary and bookish—all without diminishing personality. Its shapes are open and familiar, fostering engaged reading, with features like optical sizes and large display cuts that maximize the type’s ability to be expressive.
-foundry: "Production Type"
-foundryLink: "https://www.productiontype.com/"
-downloadLink: "https://github.com/productiontype/Newsreader"
+description: Inter is a workhorse of a typeface carefully crafted & designed for a wide range of applications, from detailed user interfaces to marketing & signage. The Inter typeface family features over 2000 glyphs covering 147 languages. Weights ranges from a delicate thin 100 all the way up to a heavy 900. Each glyph has three dedicated designs for weights 100, 400 and 900 to ensure excellent quality at any weight. Optical size ranges from "text" to "display" and there is a true italic variant.
+foundry: "Rasmus Andersson"
+foundryLink: "https://rsms.me"
+downloadLink: "https://rsms.me/inter"
 tags: ["sans-serif"]
-styles: 42
+weights: 9
+italic: true
 variable: true
-font: "InterVariable.ttf"
+staticFont: "Inter-Regular.ttf"
+variableFont: "InterVariable.ttf"
 license: "SIL Open Font License, Version 1.1"
 ---
 
-Newsreader is an open-source serif typeface, designed for on-screen, longer-form reading. Imagining the wants and needs of readers of news streams and publishing platforms, Production Type designed a text family that could be elegant, sturdy, contemporary and bookish—all without diminishing personality. Its shapes are open and familiar, fostering engaged reading, with features like optical sizes and large display cuts that maximize the type’s ability to be expressive.
-
-The result is an efficient family of 42 styles, including three optical sizes and seven weights—for all the hierarchy that long-form reading requires—while feeling fresh and vibrant.
+Inter is a workhorse of a typeface carefully crafted & designed for a wide range of applications, from detailed user interfaces to marketing & signage. The Inter typeface family features over 2000 glyphs covering 147 languages. Weights ranges from a delicate thin 100 all the way up to a heavy 900. Each glyph has three dedicated designs for weights 100, 400 and 900 to ensure excellent quality at any weight. Optical size ranges from "text" to "display" and there is a true italic variant.

@@ -42,12 +42,11 @@ const currentPath = pathname.slice(1); // remove the first "/"
             slug={post.slug}
             title={post.data.title}
             foundry={post.data.foundry}
-            styles={post.data.styles}
-            license={post.data.license}
             variable={post.data.variable}
             date={post.data.pubDate}
-            preview={post.data.preview}
-            font={post.data.font}
+            staticFont={post.data.staticFont}
+            weights={post.data.weights}
+            italic={post.data.italic}
           />
         ))
       }
