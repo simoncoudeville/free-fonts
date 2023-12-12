@@ -76,19 +76,27 @@ const { tags, currentPath, amount } = Astro.props;
     };
   };
 
-  handleHeaderScroll();
-
-  document.addEventListener("astro:page-load", () => {
+  const handleMobileNav = () => {
     let toggleNavButtons = document.querySelectorAll(".js-toggle-nav-button");
     toggleNavButtons.forEach((toggleNavButton) => {
       toggleNavButton.addEventListener("click", () => {
         document.body.classList.toggle("show-mobile-nav");
       });
     });
+  };
+
+  const init = () => {
     handleHeaderScroll();
-  });
+    handleMobileNav();
+  };
+
+  init();
+
+  // document.addEventListener("astro:page-load", () => {
+  //   handleHeaderScroll();
+  // });
 
   document.addEventListener("astro:after-swap", () => {
-    handleHeaderScroll();
+    handleMobileNav();
   });
 </script>

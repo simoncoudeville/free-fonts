@@ -68,11 +68,15 @@
     };
   };
 
-  handleBackScroll();
+  const init = () => {
+    navigateBack();
+    handleBackScroll();
+  };
+
+  init();
 
   document.addEventListener("astro:page-load", () => {
     navigateBack();
-    handleBackScroll();
   });
 
   // document.addEventListener("astro:after-swap", () => {
