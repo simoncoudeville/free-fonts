@@ -20,6 +20,9 @@ const { x1, y1, x2, y2 } = boundingBox;
 const viewBox = `${x1} ${y1} ${x2 - x1} ${y2 - y1}`;
 ---
 
-<svg height="100" viewBox={viewBox}>
+<svg role="img" height="100" viewBox={viewBox}>
+  <title>
+    {title}
+  </title>
   <path d={fontSVGPath}></path>
 </svg>
