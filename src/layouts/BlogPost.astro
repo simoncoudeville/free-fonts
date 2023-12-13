@@ -28,47 +28,51 @@ const {
 // get the slug from the url
 const slug = Astro.params.slug;
 
+// read the font file
 const fontPath = path.resolve(`src/fonts/${slug}/${variableFont}`);
 const buffer = fs.readFileSync(fontPath).buffer;
 const fontFile = opentype.parse(await buffer);
 const fontData = fontFile.tables;
-const tableNames = Object.keys(fontData);
+
 // get all the keys with the name 'tag' from the gsub table and put the values in a new array
-const fontFeatures = fontData["gsub"].features.map((feature) => feature.tag);
+let fontFeaturesTags = fontData["gsub"].features.map((feature) => feature.tag);
+// get all the unique values from the fontFeaturesTags array (some values are duplicates...)
+fontFeaturesTags = [...new Set(fontFeaturesTags)];
 
 // sometimes the fontFeatures array contains values from ss01 to ss20, replace them with a string ss01-ss20 and do the same for cv01 to cv20
-let ssAmount = fontFeatures.filter((feature) => feature.includes("ss")).length;
-let cvAmount = fontFeatures.filter((feature) => feature.includes("cv")).length;
+let ssAmount = fontFeaturesTags.filter((feature) =>
+  feature.includes("ss")
+).length;
+
+let cvAmount = fontFeaturesTags.filter((feature) =>
+  feature.includes("cv")
+).length;
 
 // rewrite ssAmount and cvAmount as for example 08 if it's 8
 ssAmount = ssAmount < 10 ? `0${ssAmount}` : ssAmount;
 cvAmount = cvAmount < 10 ? `0${cvAmount}` : cvAmount;
 
 // now replace the cv values with one string cv01-cv20 based on the amount of cv values
-if (cvAmount > 0) {
+if (cvAmount > 2) {
   // add the new string to the array at the index of the first cv value
-  fontFeatures.splice(
-    fontFeatures.indexOf("cv01"),
+  fontFeaturesTags.splice(
+    fontFeaturesTags.indexOf("cv01"),
     cvAmount,
     `cv01 -> cv${cvAmount}`
   );
 }
 
 //now replace the ss values with one string ss01-ss20 based on the amount of ss values
-if (ssAmount > 0) {
+if (ssAmount > 2) {
   // add the new string to the array at the index of the first ss value
-  fontFeatures.splice(
-    fontFeatures.indexOf("ss01"),
+  fontFeaturesTags.splice(
+    fontFeaturesTags.indexOf("ss01"),
     ssAmount,
     `ss01 -> ss${ssAmount}`
   );
 }
 
-// get all the unique values from the fontFeatures array (some values are duplicates...)
-let uniqueFeatures = [...new Set(fontFeatures)];
-
 const fvarArray = fontData["fvar"].axes;
-// const fontAxes = fvarArray.map((axe) => axe.tag);
 
 // get all the axes from the fvar with their tag, minValue and maxValue
 const fontAxes = fvarArray.map((axe) => {
@@ -79,8 +83,6 @@ const fontAxes = fvarArray.map((axe) => {
   };
 });
 
-//console.log(Object.keys(fontFile));
-//console.log(fontFile.numGlyphs);
 // remove the https:// from the foundry link
 const downloadLinkShort = downloadLink.replace(/(^\w+:|^)\/\//, "");
 
@@ -151,7 +153,6 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
   <main class="detail">
     <header class="detail__intro">
       <h1 class="detail__img">
-        <span class="sr-only">{title}</span>
         <Thumb slug={slug} title={title} font={staticFont} />
       </h1>
     </header>
@@ -207,7 +208,7 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
           <dd>
             <ul class="list-reset features">
               {
-                uniqueFeatures.map((feature) => (
+                fontFeaturesTags.map((feature) => (
                   <li class="feature">{feature},&nbsp;</li>
                   // make sure the last item doesn't have a comma after it
                 ))
