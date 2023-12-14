@@ -117,7 +117,7 @@
 	--global-color-neutral-200: hsl(var(--global-color-neutral-hue) 5% 80%);
 	--global-color-neutral-300: hsl(var(--global-color-neutral-hue) 5% 70%);
 	--global-color-neutral-400: hsl(var(--global-color-neutral-hue) 5% 56%);
-	--global-color-neutral-500: hsl(var(--global-color-neutral-hue) 5% 46%);
+	--global-color-neutral-500: hsl(var(--global-color-neutral-hue) 5% 45%);
 	--global-color-neutral-600: hsl(var(--global-color-neutral-hue) 5% 40%);
 	--global-color-neutral-700: hsl(var(--global-color-neutral-hue) 5% 30%);
 	--global-color-neutral-800: hsl(var(--global-color-neutral-hue) 5% 20%);
@@ -269,7 +269,7 @@ html {
 	/* font-weight: 400; */
 	font-weight: var(--global-fontWeight-light);
 	/* font-variation-settings: "wght" 300; */
-	font-size: calc(var(--global-fontSize)/16 * 1rem);
+	/* font-size: calc(var(--global-fontSize)/16 * 1rem); */
 	line-height: 1.5;
 	background-color: var(--global-backgroundColor);
 	color: var(--global-text-color);
@@ -281,6 +281,10 @@ html {
 	/* smooth scrolling */
 	/* scroll-behavior: smooth; */
 	font-feature-settings: "ss03";
+
+	@media (--small-viewport) {
+		font-size: calc(var(--global-fontSize)/16 * 1rem);
+	}
 }
 
 *,
@@ -469,7 +473,7 @@ a:not([class]) {
 	/* margin: auto; */
 	width: 100%;
 	/* padding: var(--item__img-padding) 0; */
-	margin-bottom: calc(var(--global-space-m) * -1);
+	/* margin-bottom: calc(var(--global-space-m) * -1); */
 	height: auto;
 	aspect-ratio: 5 / 3;
 	transition: var(--global-animation-duration-x-fast) var(--global-easeInOut);

@@ -23,28 +23,37 @@ const {
     <h2 class="item__img">
       <Thumb slug={slug} title={title} font={staticFont} />
       <!-- <Fragment set:html={svg} /> -->
-      <!-- <img src={preview} alt="" /> -->
-      <!-- <Image src={preview} alt={title} format="svg" /> -->
     </h2>
     {
       /*
       date > new Date(Date.now() - 2592000000) && (
         <p class="item__status">New</p>
       )
-    */
+     */
     }
+
+    <!-- {variable && <p class="item__status">VAR</p>} -->
+
     <div class="item__header">
-      <p class="item__foundry">By {foundry}</p>
+      <!-- <p class="item__foundry">By {foundry}</p> -->
       <p class="item__styles color-meta">
-        <!-- {styles}&nbsp;{styles === 1 ? "style" : "styles"}&nbsp;{
-          variable ? "+ variable" : ""
+        <!-- {
+          `${variable ? "Variable " : "Static"}${weights} weights${
+            italic ? " + italics" : ""
+          }`
         } -->
+        <!-- {
+          `${weights} weights${italic ? " + italics" : ""} ${
+            variable ? " + variable" : ""
+          }`
+        } -->
+        {italic ? weights * 2 : weights} styles
         <!-- {weights} weights -->
         <!-- {italic ? " + italics" : ""} -->
-        {italic ? weights * 2 : weights} styles
-        {variable ? " + variable" : ""}
+        <!-- {variable ? " - variable:" : ""} -->
+        <!-- {variable && <span class="item__var">VAR</span>} -->
+        {variable && <span class="item__var">Variable</span>}
       </p>
-      <!-- <p class="item__license">{license}</p> -->
     </div>
   </a>
 </article>

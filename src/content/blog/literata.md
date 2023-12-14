@@ -9,8 +9,9 @@ tags: ["serif", "display"]
 weights: 8
 italic: true
 variable: true
-weightsArray: ["200", "300", "400", "500", "600", "700", "800", "900"]
 staticFont: "Literata36pt-Regular.ttf"
+# staticFont: "Literata-Regular.ttf"
+# staticFont: "Literata36pt-Italic.ttf"
 variableFont: "Literata[opsz,wght].ttf"
 license: "SIL Open Font License, Version 1.1"
 ---
