@@ -11,10 +11,10 @@ const blog = defineCollection({
 		downloadLink: z.string(),
 		staticFont: z.string(),
 		variableFont: z.string().optional(),
+		formats: z.array(z.string()).optional(),
 		tags: z.array(z.string()),
 		weights: z.number(),
 		italic: z.boolean(),
-		variable: z.boolean(),
 		license: z.string(),
 		draft: z.boolean().optional(),
 		// preview: image().refine((img) => img.width >= 100, {

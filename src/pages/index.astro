@@ -39,11 +39,11 @@ const currentPath = pathname.slice(1); // remove the first "/"
       {
         posts.map((post) => (
           <Article
-            slug={post.slug}
             title={post.data.title}
-            foundry={post.data.foundry}
-            variable={post.data.variable}
+            slug={post.slug}
             date={post.data.pubDate}
+            foundry={post.data.foundry}
+            variableFont={post.data.variableFont}
             staticFont={post.data.staticFont}
             weights={post.data.weights}
             italic={post.data.italic}

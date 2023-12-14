@@ -465,6 +465,11 @@ a:not([class]) {
 	z-index: 300;
 }
 
+.item__styles {
+	display: flex;
+	justify-content: space-between;
+}
+
 .item__img {
 	--item__img-padding: var(--global-space-xxl);
 	grid-column: 1;

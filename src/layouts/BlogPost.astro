@@ -21,15 +21,20 @@ const {
   license,
   weights,
   italic,
-  variable,
   pubDate,
 } = Astro.props;
 
 // get the slug from the url
 const slug = Astro.params.slug;
 
+// if variableFont is there make it true, otherwise false
+const isVariableFont = variableFont ? true : false;
+
+// use the variable font if it's a variable font, otherwise use the static font
+const font = isVariableFont ? variableFont : staticFont;
+
 // read the font file
-const fontPath = path.resolve(`src/fonts/${slug}/${variableFont}`);
+const fontPath = path.resolve(`src/fonts/${slug}/${font}`);
 const buffer = fs.readFileSync(fontPath).buffer;
 const fontFile = opentype.parse(await buffer);
 const fontData = fontFile.tables;
@@ -72,16 +77,19 @@ if (ssAmount > 2) {
   );
 }
 
-const fvarArray = fontData["fvar"].axes;
-
 // get all the axes from the fvar with their tag, minValue and maxValue
-const fontAxes = fvarArray.map((axe) => {
-  return {
-    tag: axe.tag,
-    minValue: axe.minValue,
-    maxValue: axe.maxValue,
-  };
-});
+let fontAxes = [];
+if (isVariableFont) {
+  const fvarArray = fontData["fvar"].axes;
+
+  fontAxes = fvarArray.map((axe) => {
+    return {
+      tag: axe.tag,
+      minValue: axe.minValue,
+      maxValue: axe.maxValue,
+    };
+  });
+}
 
 // remove the https:// from the foundry link
 const downloadLinkShort = downloadLink.replace(/(^\w+:|^)\/\//, "");
@@ -180,17 +188,16 @@ const date = new Date(pubDate).toLocaleDateString("en-UK", {
             {styles}&nbsp;{styles === 1 ? "style" : "styles"}&nbsp;{
               variable ? "+ variable" : ""
             } -->
-            {italic ? weights * 2 : weights} styles
+            <!-- {italic ? weights * 2 : weights} styles -->
             {weights} weights
             {italic ? " + italics" : ""}
-            {variable ? " & variable" : ""}
           </dd>
         </div>
         {
           /* If variable true, show the axes from the array */
-          variable && (
+          isVariableFont && (
             <div class="table__row">
-              <dt>Axes</dt>
+              <dt>Variable Axes</dt>
               <dd>
                 <ul class="list-reset">
                   {fontAxes.map((axe) => (

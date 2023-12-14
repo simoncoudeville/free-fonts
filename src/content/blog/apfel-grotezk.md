@@ -1,17 +1,15 @@
 ---
-title: "Bricolage Grotesque"
-pubDate: 2023-11-29
+title: "Apfel Grotezk"
+pubDate: 2023-12-14
 description: "A free and open source variable font with French attitude and British mannerisms across 3 axis: weight, width & optical size"
 foundry: "Mathieu Triay"
 foundryLink: "https://www.mathieutriay.com"
 downloadLink: "https://ateliertriay.github.io/bricolage"
 tags: ["sans-serif", "display"]
-formats: ["ttf", "otf", "woff2"]
-weights: 7
-italic: true
-variable: true
-staticFont: "BricolageGrotesque-Regular.ttf"
-variableFont: "BricolageGrotesque[opsz,wdth,wght].ttf"
+formats: ["otf", "woff2"]
+weights: 5
+italic: false
+staticFont: "ApfelGrotezk-Regular.otf"
 license: "SIL Open Font License, Version 1.1"
 ---
 
